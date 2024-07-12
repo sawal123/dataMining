@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\DataBarang;
 use Livewire\Component;
+error_reporting(0);
 
 class ModalComponent extends Component
 {
@@ -12,8 +13,8 @@ class ModalComponent extends Component
     public $openEdit =  false;
     public $angkaRandom = '';
     public $nama = '';
-    public $stokAwal;
-    public $stokTerjual;
+    public $stokAwal=0;
+    public $stokTerjual=0;
     public $stokSisa = 0;
 
 
@@ -52,7 +53,7 @@ class ModalComponent extends Component
     // Method untuk menghitung stok sisa
     public function hitungStokSisa()
     {
-        $this->stokSisa = $this->stokAwal - $this->stokTerjual;
+        $this->stokSisa = (int)$this->stokAwal - (int)$this->stokTerjual;
     }
 
 

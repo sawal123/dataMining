@@ -28,22 +28,22 @@
                             <input type="hidden" wire:model='idBarang'>
                             <x-input-label value="Kode Barang" />
                             <x-text-input id="kode" wire:model="angkaRandom" type="number" 
-                                class="mb-3" />
+                                class="mb-3 w-full" />
 
                             <x-input-label value="Nama Barang" />
-                            <x-text-input id="nama" wire:model="nama" type="text" class="mb-3" />
+                            <x-text-input id="nama" wire:model="nama" type="text" class="mb-3 w-full" />
 
                             <x-input-label value="Stok Awal" />
                             <x-text-input id="stokAwal" wire:model="stokAwal" wire:change='hitungStokSisa'
-                                type="number" class="mb-3" />
+                                type="number" class="mb-3 w-full" />
 
                             <x-input-label value="Stok Terjual" />
                             <x-text-input id="stokTerjual" wire:model="stokTerjual" wire:change='hitungStokSisa'
-                                type="number" class="mb-3" />
+                                type="number" class="mb-3 w-full" />
 
                             <x-input-label value="Stok Tersisa" />
                             <x-text-input id="stokSisa" wire:model="stokSisa" type="number" readonly
-                                class="mb-3" />
+                                class="mb-3 w-full" />
                             {{-- <p>{{$stokSisa}}</p> --}}
 
 
