@@ -4,143 +4,162 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\DataBarang;
-
-\error_reporting(0);
+use Livewire\WithPagination;
+use Illuminate\Support\Facades\Log;
+error_reporting(0);
 
 class StokBarang extends Component
 {
-    public $items;
-    public $clusters = [];
-    public $iterations = []; // Menyimpan data setiap iterasi
-    public $k = 3; // Nilai K bisa diubah sesuai kebutuhan
-
-    public $hasil = false;
-    public $proses = false;
-
-    public function akhir()
-    {
-        $this->hasil = true;
-        $this->proses = false;
-    }
-    public function pro()
-    {
-        $this->hasil = false;
-        $this->proses = true;
-    }
+    public $items = [];
+    public $selectedItems = [];
+    public $centroids = [];
+    public $iterations = [];
+    public $k = 3; // Number of clusters
+    public  $finalClusters;
 
     public function mount()
     {
-        $this->items = DataBarang::all();
-    }
-    public function resetClusterData()
-    {
-        $this->clusters = [];
-        $this->iterations = [];
+        // Load your initial items from the database or other source
+        $this->items = DataBarang::all()->toArray();
     }
 
-    public function clusterData()
+    public function clusterDataWithSelection()
     {
-        $this->resetClusterData();
-        $data = $this->items->map(function ($item, $index) {
-            return [
-                'index' => $index,
-                'stok_awal' => $item->stok_awal ?? 0,
-                'stok_terjual' => $item->stok_terjual ?? 0,
-                'stok_tersisa' => $item->stok_akhir ?? 0,
-            ];
-        })->toArray();
-
-        $this->clusters = $this->kmeans($data, $this->k);
-        $this->pro();
-    }
-
-    public function kmeans($data, $k)
-    {
-        // Inisialisasi centroid secara acak
-        $centroids = [];
-        $randomKeys = array_rand($data, $k);
-        foreach ($randomKeys as $key) {
-            $centroids[] = $data[$key];
+        $this->centroids = [];
+        foreach ($this->selectedItems as $kode) {
+            $this->centroids[] = DataBarang::where('kode', $kode)->first()->toArray();
         }
+        usort($this->centroids, function ($a, $b) {
+            return $b['stok_terjual'] <=> $a['stok_terjual'];
+        });
+        $this->k = count($this->centroids);
+        $this->iterations = []; // Reset iterations
+        $this->performClustering();
+    }
 
-        $clusters = array_fill(0, $k, []);
-        $prevCentroids = [];
-        $iterations = 0;
-
+    public function performClustering()
+    {
+        $iteration = 0;
         do {
-            $prevCentroids = $centroids;
+            $iteration++;
+            $newCentroids = [];
+            $clusters = [];
+            $distances = []; // Initialize distances array
 
-            // Kosongkan cluster
-            foreach ($clusters as &$cluster) {
-                $cluster = [];
+            // Initialize clusters
+            for ($i = 0; $i < $this->k; $i++) {
+                $clusters[$i] = [];
             }
 
-            $iterationData = [];
-            // Assign setiap data ke cluster terdekat
-            foreach ($data as $point) {
-                $distances = array_map(function ($centroid) use ($point) {
-                    return sqrt(
-                        pow($centroid['stok_awal'] - $point['stok_awal'], 2) +
-                            pow($centroid['stok_terjual'] - $point['stok_terjual'], 2) +
-                            pow($centroid['stok_tersisa'] - $point['stok_tersisa'], 2)
-                    );
-                }, $centroids);
-
-                $closestCentroid = array_keys($distances, min($distances))[0];
-                $clusters[$closestCentroid][] = $point;
-
-                $iterationData[] = [
-                    'point' => $point,
-                    'distances' => $distances,
-                    'closestCentroid' => $closestCentroid,
-                ];
+            // Assign items to the nearest centroid
+            foreach ($this->items as $index => $item) {
+                $itemDistances = [];
+                foreach ($this->centroids as $centroid) {
+                    $itemDistances[] = $this->calculateDistance($item, $centroid);
+                }
+                $distances[$index] = $itemDistances; // Store distances for each item
+                $minDistance = min($itemDistances);
+                $clusterIndex = array_search($minDistance, $itemDistances);
+                $clusters[$clusterIndex][] = $index;
             }
 
-            // Simpan data iterasi
-            $this->iterations[] = [
-                'centroids' => $centroids,
-                'iterationData' => $iterationData,
-                'clusters' => $clusters, // Simpan clusters di setiap iterasi
-            ];
-
-            // Update centroid
-            foreach ($clusters as $i => $cluster) {
+            // Recalculate centroids
+            foreach ($clusters as $index => $cluster) {
                 if (count($cluster) > 0) {
-                    $centroids[$i] = array_reduce($cluster, function ($carry, $point) {
-                        $carry['stok_awal'] += $point['stok_awal'];
-                        $carry['stok_terjual'] += $point['stok_terjual'];
-                        $carry['stok_tersisa'] += $point['stok_tersisa'];
-                        return $carry;
-                    }, ['stok_awal' => 0, 'stok_terjual' => 0, 'stok_tersisa' => 0]);
-
-                    $count = count($cluster);
-                    $centroids[$i]['stok_awal'] /= $count;
-                    $centroids[$i]['stok_terjual'] /= $count;
-                    $centroids[$i]['stok_tersisa'] /= $count;
+                    $centroid = $this->recalculateCentroid($cluster);
+                    $centroid['kode'] = $this->items[$cluster[0]]['kode']; // Assign kode
+                    $newCentroids[$index] = $centroid;
+                } else {
+                    $newCentroids[$index] = $this->centroids[$index];
                 }
             }
 
-            $iterations++;
-        } while ($centroids !== $prevCentroids && $iterations < 100);
+            // Sort centroids by total terjual (descending)
+            usort($newCentroids, function ($a, $b) {
+                return $b['stok_terjual'] - $a['stok_terjual'];
+            });
 
-        // Tambahkan label cluster ke setiap data
-        $result = [];
-        foreach ($clusters as $i => $cluster) {
-            foreach ($cluster as $point) {
-                $point['cluster'] = $i;
-                $result[] = $point;
+            // Store iteration results
+            $this->iterations[] = [
+                'centroids' => $this->centroids,
+                'clusters' => $clusters,
+                'distances' => $distances, // Store distances for iteration
+            ];
+
+            // Update centroids
+            $this->centroids = $newCentroids;
+        } while ($iteration < 10); // Limit the number of iterations
+        $this->finalClusters = $clusters;
+        $this->getFinalResults();
+    }
+    
+    public function getFinalResults()
+    {
+        $results = [];
+        foreach ($this->finalClusters as $clusterIndex => $cluster) {
+            foreach ($cluster as $itemIndex) {
+                $item = $this->items[$itemIndex];
+                $results[] = [
+                    'nama_barang' => $item['nama_barang'],
+                    'cluster' => 'C' . ($clusterIndex + 1),
+                    'keterangan' => $this->getClusterKeterangan($clusterIndex + 1),
+                ];
             }
         }
-
-        return $result;
+        // dd($results);
+        return $results;
     }
+
+    public function getClusterKeterangan($clusterIndex)
+    {
+        switch ($clusterIndex) {
+            case 1:
+                return 'Sangat Laris';
+            case 2:
+                return 'Cukup Laris';
+            case 3:
+                return 'Tidak Laris';
+            default:
+                return 'Tidak Diketahui';
+        }
+    }
+
+    public function calculateDistance($item, $centroid)
+    {
+        return sqrt(
+            pow($item['stok_awal'] - $centroid['stok_awal'], 2) +
+                pow($item['stok_terjual'] - $centroid['stok_terjual'], 2) +
+                pow($item['stok_akhir'] - $centroid['stok_akhir'], 2)
+        );
+    }
+
+
+    public function recalculateCentroid($cluster)
+    {
+        $stokAwal = $stokTerjual = $stokAkhir = 0;
+        foreach ($cluster as $index) {
+            $stokAwal += $this->items[$index]['stok_awal'];
+            $stokTerjual += $this->items[$index]['stok_terjual'];
+            $stokAkhir += $this->items[$index]['stok_akhir'];
+        }
+        $count = count($cluster);
+        return [
+            'stok_awal' => $stokAwal / $count,
+            'stok_terjual' => $stokTerjual / $count,
+            'stok_akhir' => $stokAkhir / $count,
+        ];
+    }
+
+    
 
     public function render()
     {
+        
+        $finalResults = $this->getFinalResults();
+        $dataB = DataBarang::all();
         return view('livewire.stok-barang', [
-            'items' => $this->items,
-            'clusters' => $this->clusters,
-            'iterations' => $this->iterations
+            'dataB' => $dataB,
+            'finalResults' => $finalResults,
         ]);
     }
 }

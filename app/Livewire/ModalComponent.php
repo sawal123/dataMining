@@ -4,11 +4,13 @@ namespace App\Livewire;
 
 use App\Models\DataBarang;
 use Livewire\Component;
+use Livewire\WithPagination;
+
 error_reporting(0);
 
 class ModalComponent extends Component
 {
-
+    use WithPagination;
     public $isOpen =  false;
     public $openEdit =  false;
     public $angkaRandom = '';
@@ -36,7 +38,6 @@ class ModalComponent extends Component
         $this->stokAwal = $br->stok_awal;
         $this->stokTerjual = $br->stok_terjual;
         $this->stokSisa = $br->stok_akhir;
-        
     }
     public function closeEdit(){
         $this->res();
@@ -46,19 +47,11 @@ class ModalComponent extends Component
     {
         $this->isOpen = false;
     }
-
-
-
-
     // Method untuk menghitung stok sisa
     public function hitungStokSisa()
     {
         $this->stokSisa = (int)$this->stokAwal - (int)$this->stokTerjual;
     }
-
-
-
-    
 
     public function save()
     {
@@ -76,14 +69,7 @@ class ModalComponent extends Component
         $this->res();
         // return $this->redirect('/dashboard');
     }
-
-
-
-    public $data;
-    public function data(){
-        $this->data = DataBarang::all();
-    }
-
+    
     public function delete($id){
         // dd($id);
         $barang = DataBarang::find($id);
@@ -96,7 +82,6 @@ class ModalComponent extends Component
     }
 
     public function edit(){
-        
         $br = DataBarang::find($this->idBarang);
         $br->kode = $this->angkaRandom;
         $br->nama_barang =  $this->nama;
@@ -118,9 +103,16 @@ class ModalComponent extends Component
         $this->stokTerjual='';
         $this->stokSisa = 0;
     }
+
+    // public $dataB;
+    // public function data(){
+    //     $this->dataB = DataBarang::paginate(10);
+    // }
+
     public function render()
     {
-        $this->data();
-        return view('livewire.modal-component');
+        $dataB = DataBarang::paginate(10);
+        // dd($this->dataB);
+        return view('livewire.modal-component',['data'=>$dataB]);
     }
 }

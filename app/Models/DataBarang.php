@@ -9,5 +9,5 @@ class DataBarang extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['kode', 'stok_awal','stok_terjual', 'stok_akhir'.'jenis_syrup'];
+    protected $fillable = ['kode', 'stok_awal','stok_terjual', 'stok_akhir', 'cluster'];
 }
