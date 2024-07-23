@@ -3,7 +3,7 @@
     body {
         padding: 0 2em;
         font-family: Arial, sans-serif;
-        color: #024457;
+        /* color: #024457; */
         background: #f2f2f2;
     }
 

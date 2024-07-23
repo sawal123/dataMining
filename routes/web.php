@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function(){
     return redirect()->route('dashboard');
 });
+Route::get('/tes', function () {
+    error_reporting(0);
+    return view('pdf.report');
+});
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

@@ -6,7 +6,10 @@ use Livewire\Component;
 use App\Models\DataBarang;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Log;
-error_reporting(0);
+// use Barryvdh\DomPDF\PDF;
+use PDF;
+
+\error_reporting(0);
 
 class StokBarang extends Component
 {
@@ -16,6 +19,23 @@ class StokBarang extends Component
     public $iterations = [];
     public $k = 3; // Number of clusters
     public  $finalClusters;
+    public $loop = 10;
+
+    public $clus = false;
+    public $select = true;
+    public $hasil = false;
+    public $warning = '';
+
+
+
+    public function akhir()
+    {
+        $this->hasil = true;
+        $this->select = false;
+        $this->clus = false;
+    }
+
+
 
     public function mount()
     {
@@ -25,16 +45,23 @@ class StokBarang extends Component
 
     public function clusterDataWithSelection()
     {
-        $this->centroids = [];
-        foreach ($this->selectedItems as $kode) {
-            $this->centroids[] = DataBarang::where('kode', $kode)->first()->toArray();
+        if ($this->selectedItems === [] || count($this->selectedItems) < 3) {
+            $this->warning = 'Data Harus 3 Atau Lebih!';
+        } else {
+            $this->select = false;
+            $this->clus = true;
+            $this->centroids = [];
+
+            foreach ($this->selectedItems as $kode) {
+                $this->centroids[] = DataBarang::where('kode', $kode)->first()->toArray();
+            }
+            usort($this->centroids, function ($a, $b) {
+                return $b['stok_terjual'] <=> $a['stok_terjual'];
+            });
+            $this->k = count($this->centroids);
+            $this->iterations = []; // Reset iterations
+            $this->performClustering();
         }
-        usort($this->centroids, function ($a, $b) {
-            return $b['stok_terjual'] <=> $a['stok_terjual'];
-        });
-        $this->k = count($this->centroids);
-        $this->iterations = []; // Reset iterations
-        $this->performClustering();
     }
 
     public function performClustering()
@@ -88,11 +115,11 @@ class StokBarang extends Component
 
             // Update centroids
             $this->centroids = $newCentroids;
-        } while ($iteration < 10); // Limit the number of iterations
+        } while ($iteration < $this->loop); // Limit the number of iterations
         $this->finalClusters = $clusters;
         $this->getFinalResults();
     }
-    
+
     public function getFinalResults()
     {
         $results = [];
@@ -150,16 +177,25 @@ class StokBarang extends Component
         ];
     }
 
-    
+    public $resultF;
+    public function downloadPdf()
+    {
+        $this->resultF = $this->getFinalResults();
+        $pdf = PDF::loadView('pdf.report', ['resultF' => $this->resultF]);
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, 'laporan-cluster'.date("dmY").'.pdf');
+    }
+
 
     public function render()
     {
-        
-        $finalResults = $this->getFinalResults();
+
+        $final = $this->getFinalResults();
         $dataB = DataBarang::all();
         return view('livewire.stok-barang', [
             'dataB' => $dataB,
-            'finalResults' => $finalResults,
+            'finalResults' => $final,
         ]);
     }
 }

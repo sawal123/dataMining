@@ -1,6 +1,7 @@
 <div>
    
 @include('components.style-tabel')
+    
     <table class="responstable" style="border: 1px solid black !important">
 
         <tr>
@@ -19,7 +20,7 @@
                 <td>  {{ $item['kode'] }}</td>
                 <td>  {{ $item['nama_barang'] }}</td>
                 <td>{{$item['stok_awal']}}</td>
-                <td>{{$item['stok_terjua']}}</td>
+                <td>{{$item['stok_terjual']}}</td>
                 <td>{{$item['stok_akhir']}}</td>
                 <td class="">
                     <x-danger-button value="Delete" wire:click='delete({{$item->id}})' wire:confirm="Are you sure you want to delete this post?" class="mx-2" />

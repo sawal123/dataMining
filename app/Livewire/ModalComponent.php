@@ -2,22 +2,26 @@
 
 namespace App\Livewire;
 
-use App\Models\DataBarang;
 use Livewire\Component;
+use App\Models\DataBarang;
+use Livewire\Attributes\Url;
 use Livewire\WithPagination;
+
 
 error_reporting(0);
 
 class ModalComponent extends Component
 {
+
     use WithPagination;
     public $isOpen =  false;
     public $openEdit =  false;
     public $angkaRandom = '';
     public $nama = '';
-    public $stokAwal=0;
-    public $stokTerjual=0;
+    public $stokAwal = 0;
+    public $stokTerjual = 0;
     public $stokSisa = 0;
+    public $cari = '';
 
 
     public $idBarang;
@@ -39,7 +43,8 @@ class ModalComponent extends Component
         $this->stokTerjual = $br->stok_terjual;
         $this->stokSisa = $br->stok_akhir;
     }
-    public function closeEdit(){
+    public function closeEdit()
+    {
         $this->res();
         $this->openEdit = false;
     }
@@ -69,19 +74,21 @@ class ModalComponent extends Component
         $this->res();
         // return $this->redirect('/dashboard');
     }
-    
-    public function delete($id){
+
+    public function delete($id)
+    {
         // dd($id);
         $barang = DataBarang::find($id);
-        if($barang){
+        if ($barang) {
             $barang->delete();
-            session()->flash('status', 'Data '.$barang->nama_barang.' berhasil dihapus!');
-        }else{
+            session()->flash('status', 'Data ' . $barang->nama_barang . ' berhasil dihapus!');
+        } else {
             session()->flash('status', 'Data tidak ditemukan!');
         }
     }
 
-    public function edit(){
+    public function edit()
+    {
         $br = DataBarang::find($this->idBarang);
         $br->kode = $this->angkaRandom;
         $br->nama_barang =  $this->nama;
@@ -99,20 +106,28 @@ class ModalComponent extends Component
     {
         $this->angkaRandom = '';
         $this->nama = '';
-        $this->stokAwal='';
-        $this->stokTerjual='';
+        $this->stokAwal = '';
+        $this->stokTerjual = '';
         $this->stokSisa = 0;
     }
 
-    // public $dataB;
-    // public function data(){
-    //     $this->dataB = DataBarang::paginate(10);
-    // }
+
+
 
     public function render()
     {
-        $dataB = DataBarang::paginate(10);
-        // dd($this->dataB);
-        return view('livewire.modal-component',['data'=>$dataB]);
+
+        $query = DataBarang::query();
+
+        if ($this->cari) {
+            $query->where('nama_barang', 'like', '%' . $this->cari . '%')
+                  ->orWhere('kode', 'like', '%' . $this->cari . '%')
+                  ->orWhere('stok_awal', 'like', '%' . $this->cari . '%')
+                  ->orWhere('stok_terjual', 'like', '%' . $this->cari . '%')
+                  ->orWhere('stok_akhir', 'like', '%' . $this->cari . '%');
+        }
+
+        $dataB = $query->paginate(10);
+        return view('livewire.modal-component', ['data' => $dataB, 'cari' => $this->cari]);
     }
 }
