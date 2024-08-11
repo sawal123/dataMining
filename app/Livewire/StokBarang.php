@@ -178,8 +178,17 @@ class StokBarang extends Component
     }
 
     public $resultF;
+    // public function downloadPdf()
+    // {
+    //     $this->resultF = $this->getFinalResults();
+    //     $pdf = PDF::loadView('pdf.report', ['resultF' => $this->resultF]);
+    //     return response()->streamDownload(function () use ($pdf) {
+    //         echo $pdf->stream();
+    //     }, 'laporan-cluster'.date("dmY").'.pdf');
+    // }
     public function downloadPdf()
     {
+       
         $this->resultF = $this->getFinalResults();
         $pdf = PDF::loadView('pdf.report', ['resultF' => $this->resultF]);
         return response()->streamDownload(function () use ($pdf) {

@@ -21,9 +21,15 @@ Route::get('/tes', function () {
     return view('pdf.report');
 });
 
+
+
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::view('produk', 'produk')
+    ->middleware(['auth', 'verified'])
+    ->name('produk');
 
 Route::view('cluster', 'cluster')
     ->middleware(['auth'])
