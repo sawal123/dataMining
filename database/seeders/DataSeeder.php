@@ -21,7 +21,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "140",
                     "stok_terjual" => "110",
                     "stok_akhir" => "30",
-                    "cluster" => NULL
+                    "type" => "bubuk"
                 ],
                 [
                     "kode" => "02",
@@ -29,7 +29,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "122",
                     "stok_terjual" => "46",
                     "stok_akhir" => "76",
-                    "cluster" => NULL
+                    "type" => "bubuk"
                 ],
                 [
                     "kode" => "03",
@@ -37,7 +37,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "80",
                     "stok_terjual" => "20",
                     "stok_akhir" => "60",
-                    "cluster" => NULL
+                    "type" => "bubuk"
                 ],
                 [
                     "kode" => "04",
@@ -45,7 +45,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "50",
                     "stok_terjual" => "45",
                     "stok_akhir" => "5",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "05",
@@ -53,7 +53,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "180",
                     "stok_terjual" => "120",
                     "stok_akhir" => "60",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "06",
@@ -61,7 +61,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "230",
                     "stok_terjual" => "195",
                     "stok_akhir" => "35",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "07",
@@ -69,7 +69,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "200",
                     "stok_terjual" => "140",
                     "stok_akhir" => "60",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "08",
@@ -77,7 +77,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "320",
                     "stok_terjual" => "298",
                     "stok_akhir" => "22",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "09",
@@ -85,7 +85,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "215",
                     "stok_terjual" => "200",
                     "stok_akhir" => "15",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "10",
@@ -93,7 +93,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "120",
                     "stok_terjual" => "70",
                     "stok_akhir" => "50",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "11",
@@ -101,7 +101,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "150",
                     "stok_terjual" => "80",
                     "stok_akhir" => "70",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "12",
@@ -109,7 +109,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "120",
                     "stok_terjual" => "90",
                     "stok_akhir" => "30",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "13",
@@ -117,7 +117,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "150",
                     "stok_terjual" => "100",
                     "stok_akhir" => "50",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "14",
@@ -125,7 +125,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "230",
                     "stok_terjual" => "160",
                     "stok_akhir" => "70",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "15",
@@ -133,7 +133,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "200",
                     "stok_terjual" => "165",
                     "stok_akhir" => "35",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "16",
@@ -141,7 +141,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "250",
                     "stok_terjual" => "150",
                     "stok_akhir" => "100",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "17",
@@ -149,7 +149,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "150",
                     "stok_terjual" => "110",
                     "stok_akhir" => "40",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "18",
@@ -157,7 +157,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "80",
                     "stok_terjual" => "25",
                     "stok_akhir" => "55",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "19",
@@ -165,7 +165,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "300",
                     "stok_terjual" => "270",
                     "stok_akhir" => "30",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "20",
@@ -173,7 +173,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "50",
                     "stok_terjual" => "13",
                     "stok_akhir" => "37",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "21",
@@ -181,7 +181,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "70",
                     "stok_terjual" => "45",
                     "stok_akhir" => "25",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "22",
@@ -189,7 +189,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "120",
                     "stok_terjual" => "88",
                     "stok_akhir" => "32",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "23",
@@ -197,7 +197,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "380",
                     "stok_terjual" => "360",
                     "stok_akhir" => "20",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "24",
@@ -205,7 +205,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "180",
                     "stok_terjual" => "155",
                     "stok_akhir" => "25",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "25",
@@ -213,7 +213,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "200",
                     "stok_terjual" => "176",
                     "stok_akhir" => "24",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "26",
@@ -221,7 +221,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "110",
                     "stok_terjual" => "50",
                     "stok_akhir" => "60",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "27",
@@ -229,7 +229,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "300",
                     "stok_terjual" => "220",
                     "stok_akhir" => "80",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "28",
@@ -237,7 +237,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "150",
                     "stok_terjual" => "90",
                     "stok_akhir" => "60",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "29",
@@ -245,7 +245,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "120",
                     "stok_terjual" => "100",
                     "stok_akhir" => "20",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "30",
@@ -253,7 +253,7 @@ class DataSeeder extends Seeder
                     "stok_awal" => "200",
                     "stok_terjual" => "155",
                     "stok_akhir" => "45",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "31",
@@ -261,121 +261,122 @@ class DataSeeder extends Seeder
                     "stok_awal" => "150",
                     "stok_terjual" => "85",
                     "stok_akhir" => "65",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "32",
                     "nama_barang" => "Strawberry Syrup",
-                    "stok_awal" => "150",
-                    "stok_terjual" => "50",
-                    "stok_akhir" => "100",
-                    "cluster" => NULL
+                    "stok_awal" => "100",
+                    "stok_terjual" => "70",
+                    "stok_akhir" => "30",
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "33",
-                    "nama_barang" => "Tiramisu Syrup",
-                    "stok_awal" => "270",
-                    "stok_terjual" => "220",
-                    "stok_akhir" => "50",
-                    "cluster" => NULL
+                    "nama_barang" => "Tangerine Syrup",
+                    "stok_awal" => "80",
+                    "stok_terjual" => "58",
+                    "stok_akhir" => "22",
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "34",
-                    "nama_barang" => "Vanilla Syrup",
-                    "stok_awal" => "300",
-                    "stok_terjual" => "290",
+                    "nama_barang" => "Toffee Nut Syrup",
+                    "stok_awal" => "120",
+                    "stok_terjual" => "110",
                     "stok_akhir" => "10",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "35",
-                    "nama_barang" => "White Passionfruit",
-                    "stok_awal" => "230",
-                    "stok_terjual" => "180",
+                    "nama_barang" => "Vanilla Syrup",
+                    "stok_awal" => "150",
+                    "stok_terjual" => "100",
                     "stok_akhir" => "50",
-                    "cluster" => NULL
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "36",
-                    "nama_barang" => "Strawberry pulp",
-                    "stok_awal" => "210",
-                    "stok_terjual" => "175",
-                    "stok_akhir" => "35",
-                    "cluster" => NULL
+                    "nama_barang" => "Watermelon Syrup",
+                    "stok_awal" => "200",
+                    "stok_terjual" => "160",
+                    "stok_akhir" => "40",
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "37",
-                    "nama_barang" => "Harum Manis Pulp",
-                    "stok_awal" => "100",
-                    "stok_terjual" => "60",
-                    "stok_akhir" => "40",
-                    "cluster" => NULL
+                    "nama_barang" => "Yuzu Syrup",
+                    "stok_awal" => "250",
+                    "stok_terjual" => "200",
+                    "stok_akhir" => "50",
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "38",
-                    "nama_barang" => "Kiwi Pulp",
-                    "stok_awal" => "170",
-                    "stok_terjual" => "110",
-                    "stok_akhir" => "60",
-                    "cluster" => NULL
+                    "nama_barang" => "Almond Syrup",
+                    "stok_awal" => "100",
+                    "stok_terjual" => "60",
+                    "stok_akhir" => "40",
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "39",
-                    "nama_barang" => "Mixed Berry Pulp",
-                    "stok_awal" => "230",
-                    "stok_terjual" => "150",
-                    "stok_akhir" => "80",
-                    "cluster" => NULL
-                ],
-                [
-                    "kode" => "40",
-                    "nama_barang" => "Yuzu Pulp",
-                    "stok_awal" => "170",
-                    "stok_terjual" => "125",
-                    "stok_akhir" => "45",
-                    "cluster" => NULL
-                ],
-                [
-                    "kode" => "41",
-                    "nama_barang" => "Multibev Doger Syrup",
-                    "stok_awal" => "100",
-                    "stok_terjual" => "20",
-                    "stok_akhir" => "80",
-                    "cluster" => NULL
-                ],
-                [
-                    "kode" => "42",
-                    "nama_barang" => "Multibev Grape Syrup",
+                    "nama_barang" => "Blueberry Syrup",
                     "stok_awal" => "140",
                     "stok_terjual" => "110",
                     "stok_akhir" => "30",
-                    "cluster" => NULL
+                    "type" => "syrup"
+                ],
+                [
+                    "kode" => "40",
+                    "nama_barang" => "Lavender Syrup",
+                    "stok_awal" => "120",
+                    "stok_terjual" => "80",
+                    "stok_akhir" => "40",
+                    "type" => "syrup"
+                ],
+                [
+                    "kode" => "41",
+                    "nama_barang" => "Maple Syrup",
+                    "stok_awal" => "180",
+                    "stok_terjual" => "150",
+                    "stok_akhir" => "30",
+                    "type" => "syrup"
+                ],
+                [
+                    "kode" => "42",
+                    "nama_barang" => "Mint Chocolate Syrup",
+                    "stok_awal" => "130",
+                    "stok_terjual" => "90",
+                    "stok_akhir" => "40",
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "43",
-                    "nama_barang" => "Multibev lychee Syrup",
-                    "stok_awal" => "210",
-                    "stok_terjual" => "200",
-                    "stok_akhir" => "10",
-                    "cluster" => NULL
+                    "nama_barang" => "Orange Blossom Syrup",
+                    "stok_awal" => "110",
+                    "stok_terjual" => "70",
+                    "stok_akhir" => "40",
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "44",
-                    "nama_barang" => "Multibev Bubblegum Syrup",
-                    "stok_awal" => "180",
-                    "stok_terjual" => "110",
-                    "stok_akhir" => "70",
-                    "cluster" => NULL
+                    "nama_barang" => "Passionfruit Syrup",
+                    "stok_awal" => "120",
+                    "stok_terjual" => "90",
+                    "stok_akhir" => "30",
+                    "type" => "syrup"
                 ],
                 [
                     "kode" => "45",
-                    "nama_barang" => "Multibev Mint Syrup",
-                    "stok_awal" => "190",
-                    "stok_terjual" => "185",
-                    "stok_akhir" => "5",
-                    "cluster" => NULL
+                    "nama_barang" => "Peppermint Syrup",
+                    "stok_awal" => "140",
+                    "stok_terjual" => "110",
+                    "stok_akhir" => "30",
+                    "type" => "syrup"
                 ]
             ]
+            
         );
         
     }

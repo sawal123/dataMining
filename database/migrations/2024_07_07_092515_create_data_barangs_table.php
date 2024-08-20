@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('stok_awal');
             $table->integer('stok_terjual');
             $table->integer('stok_akhir');
-            $table->integer('cluster')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }
